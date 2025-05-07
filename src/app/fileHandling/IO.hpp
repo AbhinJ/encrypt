@@ -4,7 +4,7 @@
 #include <fstream>
 #include <string>
 
-class IO{
+class IO {
 public:
     IO(const std::string &file_path);
     ~IO();
@@ -12,7 +12,6 @@ public:
 
 private:
     std:: fstream file_stream;
-
 };
 
 #endif
