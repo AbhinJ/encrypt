@@ -2,6 +2,7 @@
 #include <filesystem>
 #include "./src/app/processes/ProcessManagement.hpp"
 #include "./src/app/processes/Task.hpp"
+#include <chrono>
 
 namespace fs = std::filesystem;
 
@@ -15,7 +16,7 @@ int main(int argc, char *argv[]) {
 
     std::cout << "Enter the action (encrypt/decrypt): ";
     std::getline(std::cin, action);
-
+    auto start = std::chrono::high_resolution_clock::now();
     try {
         if(fs::exists(directory) && fs::is_directory(directory)) {
             ProcessManagement processManagement;
@@ -40,4 +41,9 @@ int main(int argc, char *argv[]) {
     } catch(const fs::filesystem_error &ex) {
         std::cout << "FileSystem Error: " << ex.what() << std::endl;
     }
+
+    auto end = std::chrono::high_resolution_clock::now();  // ⏱️ End timer
+
+    std::chrono::duration<double> elapsed = end - start;
+    std::cout << "Total time taken: " << elapsed.count() << " seconds\n";
 }
